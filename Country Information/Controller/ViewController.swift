@@ -30,10 +30,8 @@ struct regionalBloc: Decodable {
 struct allData: Decodable {
     var name: String?
     var capital: String?
-    var region: String?
-    var subregion: String?
-    var population: String?
-    var area: String?
+    var population: Int?
+    var area: Double?
     var flag: String?
     
 }
@@ -92,9 +90,10 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         
     }
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        <#code#>
+        let detail: DetailsViewController = self.storyboard?.instantiateViewController(withIdentifier: "detail") as! DetailsViewController
+        detail.info = "Name: \(String(describing: allCountryInformation[indexPath.row].name!))\nCapital: \(String(describing: allCountryInformation[indexPath.row].capital!))\nPopulation: \(String(describing: allCountryInformation[indexPath.row].population!))\nArea: \(String(describing: allCountryInformation[indexPath.row].area!))"
+        self.navigationController?.pushViewController(detail, animated: true)
     }
 
 
