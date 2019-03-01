@@ -24,6 +24,10 @@ class DetailsViewController: UIViewController {
     }
     
 
+    @IBAction func backButtonPressed(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

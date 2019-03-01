@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JUx-Ic-c5L">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <searchBar key="tableHeaderView" contentMode="redraw" id="5sJ-fN-jsh">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -63,15 +63,16 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="JUx-Ic-c5L" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8hR-Oh-jVd"/>
-                            <constraint firstItem="JUx-Ic-c5L" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="BfA-vm-FOG"/>
-                            <constraint firstItem="JUx-Ic-c5L" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lVf-KY-AEx"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="JUx-Ic-c5L" secondAttribute="bottom" id="yQA-rk-2gr"/>
+                            <constraint firstItem="JUx-Ic-c5L" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="3s3-w0-Fss"/>
+                            <constraint firstAttribute="bottom" secondItem="JUx-Ic-c5L" secondAttribute="bottom" id="KoH-DZ-NaV"/>
+                            <constraint firstAttribute="trailing" secondItem="JUx-Ic-c5L" secondAttribute="trailing" id="MbY-5V-JqC"/>
+                            <constraint firstItem="JUx-Ic-c5L" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="cMW-KV-7n6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="01f-1P-BH0"/>
                     <connections>
+                        <outlet property="searchBar" destination="5sJ-fN-jsh" id="GfK-f8-MbB"/>
                         <outlet property="tableview" destination="JUx-Ic-c5L" id="Z0d-Dh-XPm"/>
                     </connections>
                 </viewController>
@@ -103,6 +104,17 @@
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ysn-vQ-i9P">
+                                <rect key="frame" x="164.5" y="587" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="9Ey-0Z-OYg"/>
+                                    <constraint firstAttribute="height" constant="30" id="IlT-tT-cMR"/>
+                                </constraints>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="Lbn-YO-WZr" eventType="touchUpInside" id="DCy-zy-NC1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -111,6 +123,8 @@
                             <constraint firstItem="Anu-PD-gO6" firstAttribute="top" secondItem="gva-e4-xKO" secondAttribute="top" constant="45" id="Eeh-UJ-Qy1"/>
                             <constraint firstItem="Anu-PD-gO6" firstAttribute="leading" secondItem="gva-e4-xKO" secondAttribute="leading" constant="65" id="LwM-uC-aAD"/>
                             <constraint firstItem="e3P-un-lfI" firstAttribute="leading" secondItem="gva-e4-xKO" secondAttribute="leading" constant="73" id="SHm-rH-Xkf"/>
+                            <constraint firstItem="gva-e4-xKO" firstAttribute="bottom" secondItem="Ysn-vQ-i9P" secondAttribute="bottom" constant="50" id="Y7S-ew-wPF"/>
+                            <constraint firstItem="Ysn-vQ-i9P" firstAttribute="centerX" secondItem="OdO-ij-IUZ" secondAttribute="centerX" id="bMv-VL-axO"/>
                             <constraint firstItem="gva-e4-xKO" firstAttribute="trailing" secondItem="Anu-PD-gO6" secondAttribute="trailing" constant="65" id="mb0-k0-ZJv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gva-e4-xKO"/>

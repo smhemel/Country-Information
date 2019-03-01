@@ -36,15 +36,20 @@ struct allData: Decodable {
     
 }
 
-class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate {
 
     @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var allCountryInformation = [allData]()
+    var filteredData: [allData]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getData()
+        tableview.dataSource = self
+        searchBar.delegate = self
+        filteredData = allCountryInformation
     }
     
     
@@ -80,22 +85,40 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allCountryInformation.count
+        return filteredData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell") as! TableViewCell
-        cell.countryNameLabel.text = "\(String(describing: allCountryInformation[indexPath.row].name!))"
+        cell.countryNameLabel.text = "\(String(describing: filteredData[indexPath.row].name!))"
         return cell
         
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detail: DetailsViewController = self.storyboard?.instantiateViewController(withIdentifier: "detail") as! DetailsViewController
-        detail.info = "Name: \(String(describing: allCountryInformation[indexPath.row].name!))\nCapital: \(String(describing: allCountryInformation[indexPath.row].capital!))\nPopulation: \(String(describing: allCountryInformation[indexPath.row].population!))\nArea: \(String(describing: allCountryInformation[indexPath.row].area!))"
+        detail.info = "Name: \(String(describing: filteredData[indexPath.row].name!))\nCapital: \(String(describing: filteredData[indexPath.row].capital!))\nPopulation: \(String(describing: filteredData[indexPath.row].population!))\nArea: \(String(describing: filteredData[indexPath.row].area!))"
         self.navigationController?.pushViewController(detail, animated: true)
     }
+    
+    //MARK: - Search Function
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredData = searchText.isEmpty ? allCountryInformation: allCountryInformation.filter({ (dataString) -> Bool in
+            return dataString.name!.range(of: searchText, options: .caseInsensitive) != nil
+        })
+        tableview.reloadData()
+    }
 
-
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
+    
 }
 
