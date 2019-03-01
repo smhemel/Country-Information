@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - Data Model
+
 struct currencie: Decodable {
     var code: String?
     var name: String?
@@ -22,42 +24,77 @@ struct language: Decodable {
 struct regionalBloc: Decodable {
     var acronym: String?
     var name: String?
-    var otherAcronyms = [String?]()
-    var otherNames = [String?]()
+    var otherAcronyms = [String]()
+    var otherNames = [String]()
 }
-struct allCountry: Decodable {
+struct allData: Decodable {
     var name: String?
-    var topLevelBomain = [String?]()
-    var alpha2Code: String?
-    var alpha3Code: String?
-    var callingCodes = [String?]()
     var capital: String?
-    var altSpellings = [String?]()
     var region: String?
     var subregion: String?
-    var population: Int?
-    var latlng = [Int?]()
-    var demonym: String?
-    var area: Int?
-    var gini: Float?
-    var timezones = [String?]()
-    var borders = [String?]()
-    var nativeName: String?
-    var numericCode: String?
-    var currencies = [currencie?]()
-    var languages = [language?]()
-    var translations = [String?:String?]()
+    var population: String?
+    var area: String?
     var flag: String?
-    var regionalBlocs = [regionalBloc?]()
-    var cioc: String?
     
 }
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
+    @IBOutlet weak var tableview: UITableView!
+    
+    var allCountryInformation = [allData]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        getData()
+    }
+    
+    
+    // MARK: - Parsing Data
+    
+    func getData() {
+        guard let url = URL(string: "https://restcountries.eu/rest/v2/all") else {
+            print("url error.")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            do {
+                self.allCountryInformation = try JSONDecoder().decode([allData].self, from: data!)
+                
+                for _ in self.allCountryInformation {
+                    //print(da.name!)
+                    DispatchQueue.main.async {
+                        self.tableview.reloadData()
+                    }
+                }
+                
+            } catch {
+                print("Error in get json data")
+            }
+        }.resume()
+        
+        
+    }
+    
+    
+    // MARK: - Table View Function
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return allCountryInformation.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: TableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell") as! TableViewCell
+        cell.countryNameLabel.text = "\(String(describing: allCountryInformation[indexPath.row].name!))"
+        return cell
+        
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        <#code#>
     }
 
 
