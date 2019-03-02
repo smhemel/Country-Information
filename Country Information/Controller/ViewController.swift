@@ -46,9 +46,14 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getData()
         tableview.dataSource = self
         searchBar.delegate = self
+        getData()
+        filteredData = allCountryInformation
+    }
+    
+    
+    func setData() {
         filteredData = allCountryInformation
     }
     
